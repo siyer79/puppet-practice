@@ -1,0 +1,19 @@
+---
+- hosts: all
+  remote_user: root
+  vars:
+  tasks:
+  - name:  Sign Puppet agents CSR on Puppet Master  (Switch1)
+    sudo:  yes
+    command: puppet cert sign switch1-pup-agent
+    when: inventory_hostname == "server-pup-mstr"
+
+  - name:  Sign Puppet agents CSR on Puppet Master (Switch2)
+    sudo:  yes
+    command: puppet cert sign switch2-pup-agent
+    when: inventory_hostname == "server-pup-mstr"
+
+  - name:  Install Cumulus Linux Puppet agent again! (puppet agent -t)
+    sudo:  yes
+    command: sudo /opt/puppetlabs/bin/puppet agent -t
+    when: inventory_hostname == "switch1-pup-agent" or inventory_hostname == "switch2-pup-agent"

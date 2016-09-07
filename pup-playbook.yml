@@ -63,9 +63,36 @@
     command: sudo service puppetserver start
     when: inventory_hostname == "server-pup-mstr"
 
-  - name:  Install Cumulus Linux Puppet agent 
+  - lineinfile:  dest=/etc/hosts line="192.168.100.1 server-pup-mstr puppet"
     sudo:  yes
-    command: sudo service puppetserver start
-    when: inventory_hostname == "server-pup-mstr"
 
+  - lineinfile:  dest=/etc/hosts line="192.168.100.2 switch1-pup-agent"
+    sudo:  yes 
 
+  - lineinfile:  dest=/etc/hosts line="192.168.100.3 switch2-pup-agent"
+    sudo:  yes
+
+  - name:  Install Cumulus Linux Puppet agent (wget)
+    sudo:  yes
+    command: sudo wget http://apt.puppetlabs.com/puppetlabs-release-pc1-cumulus.deb 
+    when: inventory_hostname == "switch1-pup-agent" or inventory_hostname == "switch2-pup-agent"
+
+  - name:  Install Cumulus Linux Puppet agent (dpkg)
+    sudo:  yes
+    command: sudo dpkg -i puppetlabs-release-pc1-cumulus.deb 
+    when: inventory_hostname == "switch1-pup-agent" or inventory_hostname == "switch2-pup-agent"
+
+  - name:  Install Cumulus Linux Puppet agent (apt-get update)
+    sudo:  yes
+    command: sudo apt-get update 
+    when: inventory_hostname == "switch1-pup-agent" or inventory_hostname == "switch2-pup-agent"
+
+  - name:  Install Cumulus Linux Puppet agent (puppet-agent)
+    sudo:  yes
+    command: sudo apt-get -y install puppet-agent 
+    when: inventory_hostname == "switch1-pup-agent" or inventory_hostname == "switch2-pup-agent"
+
+  - name:  Install Cumulus Linux Puppet agent (puppet agent -t)
+    sudo:  yes
+    command: sudo /opt/puppetlabs/bin/puppet agent -t
+    when: inventory_hostname == "switch1-pup-agent" or inventory_hostname == "switch2-pup-agent"

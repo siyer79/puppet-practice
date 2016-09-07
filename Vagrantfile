@@ -32,7 +32,7 @@ Vagrant.configure(2) do |config|
      # Internal network for swp* interfaces.
      device.vm.network "private_network", virtualbox__intnet: "swp1"
      device.vm.network "private_network", virtualbox__intnet: "swp2"
-     device.vm.network "private_network", virtualbox__intnet: "swp3"
+     device.vm.network "private_network", ip: "192.168.100.2/24" 
      device.vm.network "private_network", virtualbox__intnet: "swp4"
 
      device.vm.provider "virtualbox" do |v|
@@ -49,7 +49,7 @@ Vagrant.configure(2) do |config|
      # Internal network for swp* interfaces.
      device.vm.network "private_network", virtualbox__intnet: "swp1"
      device.vm.network "private_network", virtualbox__intnet: "swp2"
-     device.vm.network "private_network", virtualbox__intnet: "swp3"
+     device.vm.network "private_network", ip: "192.168.100.3/24" 
      device.vm.network "private_network", virtualbox__intnet: "swp4"
 
      device.vm.provider "virtualbox" do |v|
@@ -60,12 +60,18 @@ Vagrant.configure(2) do |config|
    end
 
 
-   config.vm.provision "ansible" do |ansible|
-     ansible.verbose = "vvv"
-     ansible.playbook = "pup-playbook.yml"
-   end
+   #config.vm.provision "ansible" do |ansible|
+   #  ansible.verbose = "vvv"
+   #  ansible.playbook = "pup-playbook.yml"
+   #end
+
+   puts "The value of config is %s: " % [config]
 
 end
 
+#Vagrant.configure(2) do |ansible|
+#   ansible.verbose = "vvv"
+#   ansible.playbook = "pup-playbook-post-up.yml"
+#end
 
 

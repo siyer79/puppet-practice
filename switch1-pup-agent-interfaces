@@ -13,8 +13,7 @@ iface swp2
  
 auto swp3
 iface swp3 inet static
-    address 192.168.0.1
-    netmask 255.255.255.0
+    address 192.168.100.2/24
   
 auto swp4
 iface swp4
