@@ -1,0 +1,71 @@
+---
+- hosts: all
+  remote_user: root
+  vars:
+  tasks:
+  - name:  copy daemons file in /etc/quagga 
+    sudo:  yes
+    template:  src=./quagga.daemons_file dest=/home/vagrant
+    when:  inventory_hostname == "server-pup-mstr"
+
+  - name:  copy server-pup-mstr interfaces file 
+    sudo:  yes
+    template:  src=./server-pup-mstr-interfaces dest=/home/vagrant
+    when:  inventory_hostname == "server-pup-mstr"
+
+  - name:  copy switch1 interfaces file
+    sudo:  yes
+    template:  src=./switch1-pup-agent-interfaces dest=/home/vagrant
+    when:  inventory_hostname == "server-pup-mstr"
+
+  - name:  copy switch2 interfaces file
+    sudo:  yes
+    template:  src=./switch2-pup-agent-interfaces dest=/home/vagrant
+    when:  inventory_hostname == "server-pup-mstr"
+
+  - name:  copy switch1 Quagga file
+    sudo:  yes
+    template:  src=./switch1-pup-agent-Quagga.conf dest=/home/vagrant
+    when:  inventory_hostname == "server-pup-mstr"
+
+  - name:  copy switch2 Quagga file
+    sudo:  yes
+    template:  src=./switch2-pup-agent-Quagga.conf dest=/home/vagrant
+    when:  inventory_hostname == "server-pup-mstr"
+
+  - name:  copy pup-mstr hosts file
+    sudo:  yes
+    template:  src=./server-pup-mstr-hosts dest=/etc/hosts
+    when:  inventory_hostname == "server-pup-mstr"
+
+  - name:  Install Puppet packages Part 1 (wget)
+    sudo:  yes
+    command: wget https://apt.puppetlabs.com/puppetlabs-release-pc1-trusty.deb 
+    when: inventory_hostname == "server-pup-mstr" 
+
+  - name:  Install Puppet packages Part 2 (dpkg )
+    sudo:  yes
+    command: sudo dpkg -i puppetlabs-release-pc1-trusty.deb 
+    when: inventory_hostname == "server-pup-mstr"
+
+  - name:  Install Puppet packages Part 3 (apt-get update)
+    sudo:  yes
+    command: sudo apt-get update
+    when: inventory_hostname == "server-pup-mstr"
+
+  - name:  Install Puppet server packages 
+    sudo:  yes
+    command: sudo apt-get -y install puppetserver 
+    when: inventory_hostname == "server-pup-mstr"
+
+  - name:  Start the Puppet Server service 
+    sudo:  yes
+    command: sudo service puppetserver start
+    when: inventory_hostname == "server-pup-mstr"
+
+  - name:  Install Cumulus Linux Puppet agent 
+    sudo:  yes
+    command: sudo service puppetserver start
+    when: inventory_hostname == "server-pup-mstr"
+
+
