@@ -19,5 +19,5 @@ Steps:
 
 4) Login to switch1-pup-agent and switch2-pup-agent again and re-run the command:  "sudo /opt/puppetlabs/bin/puppet agent -t"
 
-You should now be ready to build your Puppet configuration.
+
 
