@@ -11,20 +11,6 @@ Vagrant.configure(2) do |config|
    config.vm.box = "cumulus-vx-3.1.0"
   
 
-##### DEFINE VM for server-pup-mstr (Puppet Master running Ubuntu  #####
-   config.vm.define "server-pup-mstr" do |override|
-    
-     override.vm.box = "ubuntu/trusty64" 
-     override.vm.network "private_network", ip: "192.168.100.1/24"     
- 
-     override.vm.provider "virtualbox" do |v|
-       v.name = "server-pup-mstr"
-       v.memory = 4096 
-     end   
-  
-   end
-
-
 ##### DEFINE VM for switch1-pup-agent (Puppet Agent Switch 1)  #####
    config.vm.define "switch1-pup-agent" do |device|
      device.vm.hostname = "switch1-pup-agent"
@@ -59,19 +45,26 @@ Vagrant.configure(2) do |config|
 
    end
 
+##### DEFINE VM for server-pup-mstr (Puppet Master running Ubuntu  #####
+   config.vm.define "server-pup-mstr" do |override|
 
-   #config.vm.provision "ansible" do |ansible|
-   #  ansible.verbose = "vvv"
-   #  ansible.playbook = "pup-playbook.yml"
-   #end
+     override.vm.box = "ubuntu/trusty64"
+     override.vm.network "private_network", ip: "192.168.100.1/24"
 
-   puts "The value of config is %s: " % [config]
+     override.vm.provider "virtualbox" do |v|
+       v.name = "server-pup-mstr"
+       v.memory = 4096
+     end
+
+   end
+
+
+   config.vm.provision "ansible" do |ansible|
+     ansible.verbose = "vvv"
+     ansible.playbook = "pup-playbook.yml"
+   end
+
 
 end
-
-#Vagrant.configure(2) do |ansible|
-#   ansible.verbose = "vvv"
-#   ansible.playbook = "pup-playbook-post-up.yml"
-#end
 
 
