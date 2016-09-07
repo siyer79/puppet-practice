@@ -4,6 +4,7 @@ The Ubuntu server (server-pup-mstr) will be the Puppet Master and Cumulus switch
 will run Puppet agents and can be provisioned by the Puppet Master.
 
 Steps:
+
 1) Bring all the systems up with "Vagrant up"
 
 2) Login to switch1-pup-agent and switch2-pup-agent and run this command:  "sudo /opt/puppetlabs/bin/puppet agent -t"
@@ -18,4 +19,5 @@ Steps:
 
 4) Login to switch1-pup-agent and switch2-pup-agent again and re-run the command:  "sudo /opt/puppetlabs/bin/puppet agent -t"
 
+You should now be ready to build your Puppet configuration.
 
