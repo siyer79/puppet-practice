@@ -11,9 +11,9 @@ Steps:
 
 3) Login to server-pup-mstr and run these commands:  
   
-  "sudo puppet cert sign switch1-pup-agent"
+  "sudo /opt/puppetlabs/bin/puppet cert sign switch1-pup-agent"
   
-  "sudo puppet cert sign switch2-pup-agent"
+  "sudo /opt/puppetlabs/bin/puppet cert sign switch2-pup-agent"
   
   Verify that puppetserver is running with command:  service puppetserver status
 
