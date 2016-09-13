@@ -11,9 +11,12 @@ Steps:
 
 3) Login to server-pup-mstr and run these commands:  
   
-  "sudo /opt/puppetlabs/bin/puppet cert sign switch1-pup-agent"
+  Verify that certificate request was made with:
+  "sudo /opt/puppetlabs/bin/puppet cert list"
   
-  "sudo /opt/puppetlabs/bin/puppet cert sign switch2-pup-agent"
+  "sudo /opt/puppetlabs/bin/puppet cert sign switch1-pup-agent.example.com"  (The FQDN includes example.com as the domain)
+  
+  "sudo /opt/puppetlabs/bin/puppet cert sign switch2-pup-agent.example.com"
   
   Verify that puppetserver is running with command:  service puppetserver status
 
